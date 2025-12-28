@@ -14,7 +14,7 @@ def fn_load_joblib(filename, filepath):
     return joblib.load(f'{filepath}{filename}') 
 
 
-# Create a FastAPI instance
+# Create a FastAPI instance JME
 app = FastAPI(
     title="Projet n°7",
     version="1.0.0",
@@ -26,7 +26,7 @@ app = FastAPI(
 path_dir = "./"
 
 # Loading the model
-model_final = fn_load_joblib("model_final.joblib", path_dir)
+# model_final = fn_load_joblib("model_final.joblib", path_dir)
 
 X_train = pd.read_csv(path_dir + 'df_datas_train_reduit_cleaned.csv')
 X_test = pd.read_csv(path_dir + 'df_datas_test_reduit_cleaned.csv')
@@ -39,7 +39,7 @@ cols = X_test.select_dtypes(['float64']).columns
 X_test_scaled = X_test.copy()
 X_test_scaled[cols] = StandardScaler().fit_transform(X_test[cols])
 
-tree_explainer = shap.TreeExplainer(model_final['classifier'], approximate=True)
+# tree_explainer = shap.TreeExplainer(model_final['classifier'], approximate=True)
 
 
 # Functions
@@ -82,17 +82,17 @@ def get_client(client_id: int):
     return client_data.to_json()
 
 
-@app.get('/prediction/{client_id}')
-def get_prediction(client_id: int):
-    """
-    Calculates the probability of default for a client.
-    :param: client_id (int)
-    :return: probability of default (float).
-    """
-    client_data = X_test[X_test['SK_ID_CURR'] == client_id]
-    client_data = client_data.drop('SK_ID_CURR', axis=1)
-    prediction = model_final.predict_proba(client_data)[0][1]
-    return prediction
+# @app.get('/prediction/{client_id}')
+# def get_prediction(client_id: int):
+#     """
+#     Calculates the probability of default for a client.
+#     :param: client_id (int)
+#     :return: probability of default (float).
+#     """
+#     client_data = X_test[X_test['SK_ID_CURR'] == client_id]
+#     client_data = client_data.drop('SK_ID_CURR', axis=1)
+#     prediction = model_final.predict_proba(client_data)[0][1]
+#     return prediction
 
 
 @app.get('/clients_similaires/{client_id}')
@@ -117,34 +117,34 @@ def get_data_voisins(client_id: int):
     return df_voisins.to_json()
 
 
-@app.get('/shaplocal/{client_id}')
-def shap_values_local(client_id: int) -> dict:
-    """ Calcul les shap values pour un client.
-        :param: client_id (int)
-        :return: shap values du client (json).
-        """
-    client_data = X_test_scaled[X_test_scaled['SK_ID_CURR'] == client_id]
-    client_data = client_data.drop('SK_ID_CURR', axis=1)
-    shap_val = tree_explainer(client_data)[0]
-    return {
-        'shap_values': shap_val.values.tolist(),
-        'base_value': shap_val.base_values,
-        'data': client_data.values.tolist(),
-        'feature_names': client_data.columns.tolist()
-    }
+# @app.get('/shaplocal/{client_id}')
+# def shap_values_local(client_id: int) -> dict:
+#     """ Calcul les shap values pour un client.
+#         :param: client_id (int)
+#         :return: shap values du client (json).
+#         """
+#     client_data = X_test_scaled[X_test_scaled['SK_ID_CURR'] == client_id]
+#     client_data = client_data.drop('SK_ID_CURR', axis=1)
+#     shap_val = tree_explainer(client_data)[0]
+#     return {
+#         'shap_values': shap_val.values.tolist(),
+#         'base_value': shap_val.base_values,
+#         'data': client_data.values.tolist(),
+#         'feature_names': client_data.columns.tolist()
+#     }
 
 
-@app.get('/shap/')
-def shap_values() -> dict:
-    """ Calcul les shap values de l'ensemble du jeu de données
-    :param:
-    :return: shap values
-    """
-    shap_val = tree_explainer.shap_values(X_test_scaled.drop('SK_ID_CURR', axis=1))
-    return {
-        'shap_values_0': shap_val[0].tolist(),
-        'shap_values_1': shap_val[1].tolist()
-    }
+# @app.get('/shap/')
+# def shap_values() -> dict:
+#     """ Calcul les shap values de l'ensemble du jeu de données
+#     :param:
+#     :return: shap values
+#     """
+#     shap_val = tree_explainer.shap_values(X_test_scaled.drop('SK_ID_CURR', axis=1))
+#     return {
+#         'shap_values_0': shap_val[0].tolist(),
+#         'shap_values_1': shap_val[1].tolist()
+#     }
 
 
 # if __name__ == '__main__':
