@@ -26,7 +26,7 @@ app = FastAPI(
 path_dir = "./"
 
 # Loading the model
-# model_final = fn_load_joblib("model_final.joblib", path_dir)
+model_final = fn_load_joblib("model_final.joblib", path_dir)
 
 X_train = pd.read_csv(path_dir + 'df_datas_train_reduit_cleaned.csv')
 X_test = pd.read_csv(path_dir + 'df_datas_test_reduit_cleaned.csv')
