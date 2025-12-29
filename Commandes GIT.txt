@@ -1,0 +1,76 @@
+git init
+
+Ajouter tous les fichiers :
+git add .
+
+ou :
+git add EMIDIO_JEAN_Notebook_projet_7_0_Nettoyage.ipynb EMIDIO_JEAN_Notebook_projet_7_1_Exploration.ipynb EMIDIO_JEAN_Notebook_projet_7_2_Modélisation.ipynb EMIDIO_JEAN_Notebook_projet_7_3_Drift.ipynb EMIDIO_JEAN_Notebook_projet_7_4_API.py EMIDIO_JEAN_Notebook_projet_7_5_TEST_API.py EMIDIO_JEAN_Notebook_projet_7_6_TEST_API.ipynb fonctions_python.py README.md model_final.pkl df_datas_train_reduit_cleaned.csv df_datas_test_reduit_cleaned.csv main_api.py main_test_api.py runtime.txt requirements.txt Procfile
+
+git status
+
+git commit -m "Version initiale"
+
+git remote add origin git@github.com:DTYS65/Projet7-OpenClassRooms.git
+
+git branch -M main
+
+git push -u origin main
+
+
+Commandes groupées :
+git add . && git commit -m "Version finale" && git push -u origin main
+
+
+
+
+
+
+
+
+
+
+Si erreur, par exemple si j'ai entretemps rajouté un ReadMe : The remote repo was initialized/updated separately (e.g., README added on GitHub)
+
+Pull the remote changes first
+
+git pull
+
+Attention il apparait un message : Astuce (éviter ce message à l’avenir)
+git pull --rebase
+
+If you want a cleaner history (rebase instead of merge)
+git pull --rebase
+
+Puis refaire :
+git push
+
+If you’re sure you want to overwrite the remote (⚠️ dangerous)
+git push --force
+
+
+Pour annuler les commit
+git resert --hard
+
+
+
+
+Si error: You have not concluded your merge (MERGE_HEAD exists).
+faire alors un commit
+git commit -m "..."
+
+puis faire le pull 
+git pull --rebase
+
+
+
+
+
+
+
+
+
+Commandes séparées par ; 
+la commande suivante s'exécute toujours
+
+Commandes séparées par && 
+la commande suivante ne s'exécute qu'en cas de succès de la commande précédente
