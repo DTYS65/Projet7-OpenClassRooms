@@ -45,14 +45,6 @@ def test_get_client():
 
 def test_get_prediction():
     """Teste la fonction get_prediction() de l'API."""
-    url = API_URL + "prediction/" + str(168959)
-    response = requests.get(url)
-    assert response.status_code == status.HTTP_200_OK
-    assert json.loads(response.content) == 0.0847574849837666
-
-
-def test_get_prediction():
-    """Teste la fonction get_prediction() de l'API."""
     url = API_URL + "prediction/" + str(425400)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
