@@ -71,8 +71,10 @@
 
 name: Déploiement vers Heroku
 
-on:
-  workflow_dispatch:
+on: 
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
