@@ -49,7 +49,7 @@ def welcome():
     :param: None
     :return: Message (string).
     """
-    return 'Bienvenue sur le projet n°7 d\'Openclassrooms : Implémentez un modèle de scoring'
+    return 'Bienvenue dans le projet n°7 d\'Openclassrooms : Implémentez un modèle de scoring'
 
 
 @app.get("/test_user/{user_id}")
