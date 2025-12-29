@@ -22,7 +22,7 @@ def test_welcome():
 
 def test_check_client_id():
     """Teste la fonction check_client_id() de l'API avec un client faisant partie de la base de données X_test."""
-    url = API_URL + str(192535)
+    url = API_URL + str(168959)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
     assert json.loads(response.content) == True
@@ -38,7 +38,15 @@ def test_check_client_id_2():
 
 def test_get_prediction():
     """Teste la fonction get_prediction() de l'API."""
-    url = API_URL + "prediction/" + str(192535)
+    url = API_URL + "prediction/" + str(168959)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
-    assert json.loads(response.content) == 0.5451879132329674
+    assert json.loads(response.content) == 0.0847574849837666
+
+
+def test_get_prediction():
+    """Teste la fonction get_prediction() de l'API."""
+    url = API_URL + "prediction/" + str(425400)
+    response = requests.get(url)
+    assert response.status_code == status.HTTP_200_OK
+    assert json.loads(response.content) == 0.24716962315451516
