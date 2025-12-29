@@ -21,14 +21,6 @@ Commandes groupées :
 git add . && git commit -m "Version finale" && git push -u origin main
 
 
-
-
-
-
-
-
-
-
 Si erreur, par exemple si j'ai entretemps rajouté un ReadMe : The remote repo was initialized/updated separately (e.g., README added on GitHub)
 
 Pull the remote changes first
@@ -52,8 +44,6 @@ Pour annuler les commit
 git resert --hard
 
 
-
-
 Si error: You have not concluded your merge (MERGE_HEAD exists).
 faire alors un commit
 git commit -m "..."
@@ -62,15 +52,29 @@ puis faire le pull
 git pull --rebase
 
 
-
-
-
-
-
-
-
 Commandes séparées par ; 
 la commande suivante s'exécute toujours
 
 Commandes séparées par && 
 la commande suivante ne s'exécute qu'en cas de succès de la commande précédente
+
+
+New branch
+git branch version_1
+git checkout version_1
+git add test_version_1.txt
+git commit -m "New branch version_1"
+git push -u origin version_1
+
+
+
+
+
+
+
+
+
+
+
+
+
