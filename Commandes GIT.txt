@@ -66,8 +66,9 @@ git add test_version_1.txt
 git commit -m "New branch version_1"
 git push -u origin version_1
 
-
-
+voir toutes les branches :
+git branch
+git checkout main
 
 
 
