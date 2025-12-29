@@ -1,39 +1,59 @@
-name: Déploiement vers Heroku
+# name: Déploiement vers Heroku
 
-on:
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: "3.12"
+
+#       - name: Install Heroku CLI
+#         run: |
+#           curl https://cli-assets.heroku.com/install.sh | sh
+
+#       - name: Login to Heroku
+#         env:
+#           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+#         run: |
+#           echo "$HEROKU_API_KEY" | heroku auth:token
+
+#       - name: Add Heroku remote
+#         env:
+#           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+#         run: |
+#           heroku git:remote -a $HEROKU_APP_NAME
+
+#       - name: Deploy to Heroku
+#         run: |
+#           git push heroku main --force
+
+
+
+name: Déploiement vers Heroku # The name of the workflow
+
+on: 
   push:
     branches:
-      - main
+      - main #Launch the action on every push on the branch main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-latest # Setup an environment to run the action
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v2 # This actions copy the repository on the environment
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This action deploys the content on Heroku
         with:
-          python-version: "3.12"
-
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-
-      - name: Login to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          echo "$HEROKU_API_KEY" | heroku auth:token
-
-      - name: Add Heroku remote
-        env:
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: |
-          heroku git:remote -a $HEROKU_APP_NAME
-
-      - name: Deploy to Heroku
-        run: |
-          git push heroku main --force
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}} #The Heroku api key we stored on our repo secret
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #The name of your heroku app - Must be unique in Heroku
+          heroku_email: "dtys65@hotmail.fr" #Your heroku user name
