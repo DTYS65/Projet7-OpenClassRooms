@@ -37,8 +37,8 @@ X_test_scaled = X_test.copy()
 X_test_scaled[cols] = StandardScaler().fit_transform(X_test[cols])
 
 # Loading the model and tree_explainer
-# model_final = fn_load_joblib("model_final.joblib", path_dir)
-# tree_explainer = shap.TreeExplainer(model_final['classifier'], approximate=True)
+model_final = fn_load_joblib("model_final.joblib", path_dir)
+tree_explainer = shap.TreeExplainer(model_final['classifier'], approximate=True)
 
 
 # Functions
@@ -88,8 +88,6 @@ def get_prediction(client_id: int):
     :param: client_id (int)
     :return: probability of default (float).
     """
-    model_final = fn_load_joblib("model_final.joblib", path_dir)
-
     client_data = X_test[X_test['SK_ID_CURR'] == client_id]
     client_data = client_data.drop('SK_ID_CURR', axis=1)
     prediction = model_final.predict_proba(client_data)[0][1]
@@ -124,9 +122,6 @@ def shap_values_local(client_id: int) -> dict:
         :param: client_id (int)
         :return: shap values du client (json).
         """
-    model_final = fn_load_joblib("model_final.joblib", path_dir)
-    tree_explainer = shap.TreeExplainer(model_final['classifier'], approximate=True)
-
     client_data = X_test_scaled[X_test_scaled['SK_ID_CURR'] == client_id]
     client_data = client_data.drop('SK_ID_CURR', axis=1)
     shap_val = tree_explainer(client_data)[0]
@@ -144,9 +139,6 @@ def shap_values() -> dict:
     :param:
     :return: shap values
     """
-    model_final = fn_load_joblib("model_final.joblib", path_dir)
-    tree_explainer = shap.TreeExplainer(model_final['classifier'], approximate=True)
-
     shap_val = tree_explainer.shap_values(X_test_scaled.drop('SK_ID_CURR', axis=1))
     return {
         'shap_values_0': shap_val[0].tolist(),
