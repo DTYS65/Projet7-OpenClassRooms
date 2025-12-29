@@ -41,10 +41,27 @@
 
 
 
-name: Debug Heroku apps
-  
-env:
-    HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-    
-run: |
-    heroku apps
+name: Test Heroku Connection
+
+on:
+  workflow_dispatch:   # lancement manuel
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Authenticate & list apps
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku auth:whoami
+          heroku apps
+
+      - name: Check access to app
+        run: |
+          heroku info -a "${{ secrets.HEROKU_APP_NAME }}"
