@@ -69,6 +69,31 @@
 
 
 
+# name: Déploiement vers Heroku
+
+# on: 
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Deploy to Heroku
+#         uses: akhileshns/heroku-deploy@v3.12.12
+#         with:
+#           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+#           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+#           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+#           dontautocreate: true
+
+
+
 name: Déploiement vers Heroku
 
 on: 
@@ -81,14 +106,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+          heroku --version
+
+      - name: Authenticate Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo "$HEROKU_API_KEY" | heroku auth:token
+          heroku auth:whoami
+
+      - name: Add Heroku remote
+        run: |
+          heroku git:remote -a "${{ secrets.HEROKU_APP_NAME }}"
+
       - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          dontautocreate: true
-          usecontainer: true
+        run: |
+          git push heroku HEAD:main --force
