@@ -59,7 +59,7 @@ Commandes séparées par &&
 la commande suivante ne s'exécute qu'en cas de succès de la commande précédente
 
 
-New branch
+New branch :
 git branch version_1
 git checkout version_1
 git add test_version_1.txt
