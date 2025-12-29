@@ -40,20 +40,24 @@
 
 
 
-name: Déploiement vers Heroku # The name of the workflow
+name: Déploiement vers Heroku
 
 on: 
   push:
     branches:
-      - main #Launch the action on every push on the branch main
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest # Setup an environment to run the action
+  deploy:
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2 # This actions copy the repository on the environment
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This action deploys the content on Heroku
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}} #The Heroku api key we stored on our repo secret
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #The name of your heroku app - Must be unique in Heroku
-          heroku_email: "dtys65@hotmail.fr" #Your heroku user name
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
