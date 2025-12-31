@@ -13,7 +13,6 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import NearestNeighbors
 import uvicorn
 import shap
-import dill
 
 import fonctions_python as fc
 
