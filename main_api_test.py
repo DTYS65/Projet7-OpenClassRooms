@@ -22,7 +22,7 @@ def test_welcome():
 
 def test_check_client_id():
     """Teste la fonction check_client_id() de l'API avec un client faisant partie de la base de données X_test."""
-    url = API_URL + str(168959)
+    url = API_URL + str(243371)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
     assert json.loads(response.content) == True
@@ -30,7 +30,7 @@ def test_check_client_id():
 
 def test_check_client_id_2():
     """Teste la fonction check_client_id() de l'API avec un client ne faisant pas partie de la base de données X_test."""
-    url = API_URL + str(100000)
+    url = API_URL + str(412720)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
     assert json.loads(response.content) == False
@@ -38,14 +38,14 @@ def test_check_client_id_2():
 
 def test_get_client():
     """Teste la fonction get_client() de l'API."""
-    url = API_URL + "client/" + str(168959)
+    url = API_URL + "client/" + str(243371)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
 
 
 def test_get_prediction():
     """Teste la fonction get_prediction() de l'API."""
-    url = API_URL + "prediction/" + str(425400)
+    url = API_URL + "prediction/" + str(243371)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
     assert json.loads(response.content) == 0.24716962315451516
@@ -53,6 +53,6 @@ def test_get_prediction():
 
 def test_get_data_voisins():
     """Teste la fonction get_data_voisins() de l'API."""
-    url = API_URL + "clients_similaires/" + str(425400)
+    url = API_URL + "clients_similaires/" + str(243371)
     response = requests.get(url)
     assert response.status_code == status.HTTP_200_OK
