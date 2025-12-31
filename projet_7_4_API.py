@@ -27,12 +27,10 @@ app = FastAPI(
 
 # Répertoires
 path_dir = "./"
-path_datas_save = "datas/datas_save/"
-path_model_final = "model_final/"
 
 
 # Loading the model
-model_final = fc.load_joblib("model_final.joblib", path_dir + path_model_final)
+model_final = fc.load_joblib("model_final.joblib", path_dir)
 
 
 # Loading the datas
@@ -43,8 +41,8 @@ model_final = fc.load_joblib("model_final.joblib", path_dir + path_model_final)
 # y_train = dict_agg['y_train']
 # X_test = dict_agg['X_test']
 
-X_train = pd.read_csv(path_dir + path_datas_save + 'df_datas_train_cleaned.csv')
-X_test = pd.read_csv(path_dir + path_datas_save + 'df_datas_test_cleaned.csv')
+X_train = pd.read_csv(path_dir + 'df_datas_train_reduit_cleaned.csv')
+X_test = pd.read_csv(path_dir + 'df_datas_test_reduit_cleaned.csv')
 
 cols = X_train.select_dtypes(['float64']).columns
 X_train_scaled = X_train.copy()

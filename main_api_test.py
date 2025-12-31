@@ -9,8 +9,8 @@ import requests
 import json
 
 
-API_URL = "http://127.0.0.1:8000/"
-# API_URL = "https://projet-7-modele-de-scoring-6b3669013dac.herokuapp.com/"
+# API_URL = "http://127.0.0.1:8000/"
+API_URL = "https://projet-7-modele-de-scoring-6b3669013dac.herokuapp.com/"
 
 
 def test_welcome():
