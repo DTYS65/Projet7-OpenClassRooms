@@ -191,7 +191,7 @@ def distribution_densite(df, colonnes, n_cols, fig=(20,20)):
     
 def heat_map(df_corr):
     '''Affiche la heatmap '''
-    plt.figure(figsize=(30,30))
+    plt.figure(figsize=(20,10))
     sns.heatmap(df_corr, annot=True, linewidth=.5)
     plt.title("Heatmap")
 
@@ -356,9 +356,9 @@ def kfold_lightgbm(df, num_folds, stratified = False, debug= False):
 def display_importances(feature_importance_df_):
     cols = feature_importance_df_[["feature", "importance"]].groupby("feature").mean().sort_values(by="importance", ascending=False).index  #[:40]
     best_features = feature_importance_df_.loc[feature_importance_df_.feature.isin(cols)]
-    plt.figure(figsize=(8, 10))
+    plt.figure(figsize=(10, 10))
     sns.barplot(x="importance", y="feature", data=best_features.sort_values(by="importance", ascending=False))
-    plt.title('LightGBM Features (avg over folds)')
+    plt.title('Importance des variables : LightGBM')
     plt.tight_layout()
 
 
